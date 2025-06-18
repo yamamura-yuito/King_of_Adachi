@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<mapper namespace="io.github.shuoros.jep.infrastructure.db.mybatis.FavoriteMapper">
+    <select id="findByUserId" resultType="io.github.shuoros.jep.domain.model.Favorite">
+        SELECT user_id AS userId, spot_id AS spotId
+        FROM favorites
+        WHERE user_id = #{userId}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO favorites (user_id, spot_id)
+        VALUES (#{userId}, #{spotId})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM favorites WHERE user_id = #{userId} AND spot_id = #{spotId}
+    </delete>
+</mapper>
