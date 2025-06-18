@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.kingofadachi.infrastructure.db.mybatis.SpotMapper">
+
+    <select id="findById" resultType="com.example.kingofadachi.domain.model.Spot">
+        SELECT id, name, description, latitude, longitude
+        FROM spots
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.example.kingofadachi.domain.model.Spot">
+        SELECT id, name, description, latitude, longitude
+        FROM spots
+        ORDER BY id
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO spots (name, description, latitude, longitude)
+        VALUES (#{name}, #{description}, #{latitude}, #{longitude})
+    </insert>
+
+    <update id="update">
+        UPDATE spots
+        SET name = #{name},
+            description = #{description},
+            latitude = #{latitude},
+            longitude = #{longitude}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM spots
+        WHERE id = #{id}
+    </delete>
+</mapper>
