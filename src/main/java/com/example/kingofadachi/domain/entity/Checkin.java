@@ -1,4 +1,4 @@
-package com.example.kingofadachi.domain.model;
+package com.example.kingofadachi.domain.entity;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

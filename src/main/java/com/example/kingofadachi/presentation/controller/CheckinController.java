@@ -1,7 +1,7 @@
-package com.example.kingofadachi.infrastructure.web;
+package com.example.kingofadachi.presentation.controller;
 
-import com.example.kingofadachi.application.service.CheckinService;
-import com.example.kingofadachi.domain.model.Checkin;
+import com.example.kingofadachi.application.service.impl.CheckinService;
+import com.example.kingofadachi.domain.entity.Checkin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

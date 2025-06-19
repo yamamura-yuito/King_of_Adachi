@@ -1,6 +1,6 @@
-package com.example.kingofadachi.infrastructure.db.mybatis;
+package com.example.kingofadachi.infrastructure.mapper;
 
-import com.example.kingofadachi.domain.model.Spot;
+import com.example.kingofadachi.domain.entity.Spot;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 import java.util.Optional;

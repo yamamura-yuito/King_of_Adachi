@@ -1,16 +1,17 @@
-package com.example.kingofadachi.infrastructure.db.mybatis;
+package com.example.kingofadachi.infrastructure.repository;
 
-import com.example.kingofadachi.domain.model.Checkin;
+import com.example.kingofadachi.domain.entity.Checkin;
 import com.example.kingofadachi.domain.repository.CheckinRepository;
+import com.example.kingofadachi.infrastructure.mapper.CheckinMapper;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
 public class CheckinRepositoryImpl implements CheckinRepository {
 
-    private final CheckinMapper checkinMapper;
+    private final com.example.kingofadachi.infrastructure.mapper.CheckinMapper checkinMapper;
 
-    public CheckinRepositoryImpl(CheckinMapper checkinMapper) {
+    public CheckinRepositoryImpl(com.example.kingofadachi.infrastructure.mapper.CheckinMapper checkinMapper) {
         this.checkinMapper = checkinMapper;
     }
 

@@ -1,6 +1,6 @@
 package com.example.kingofadachi.domain.repository;
 
-import com.example.kingofadachi.domain.model.Spot;
+import com.example.kingofadachi.domain.entity.Spot;
 import java.util.List;
 import java.util.Optional;
 

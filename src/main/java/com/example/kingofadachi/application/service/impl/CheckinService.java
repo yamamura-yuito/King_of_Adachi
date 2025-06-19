@@ -1,8 +1,8 @@
-package com.example.kingofadachi.application.service;
+package com.example.kingofadachi.application.service.impl;
 
-import com.example.kingofadachi.domain.model.Checkin;
-import com.example.kingofadachi.domain.model.Spot;
-import com.example.kingofadachi.domain.model.User;
+import com.example.kingofadachi.domain.entity.Checkin;
+import com.example.kingofadachi.domain.entity.Spot;
+import com.example.kingofadachi.domain.entity.User;
 import com.example.kingofadachi.domain.repository.CheckinRepository;
 import com.example.kingofadachi.domain.repository.SpotRepository;
 import com.example.kingofadachi.domain.repository.UserRepository;

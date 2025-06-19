@@ -1,4 +1,4 @@
-package com.example.kingofadachi.domain.model;
+package com.example.kingofadachi.domain.entity;
 
 import java.util.Objects;
 

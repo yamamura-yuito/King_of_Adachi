@@ -1,6 +1,6 @@
-package com.example.kingofadachi.infrastructure.db.mybatis;
+package com.example.kingofadachi.infrastructure.mapper;
 
-import com.example.kingofadachi.domain.model.Favorite; // Corrected import
+import com.example.kingofadachi.domain.entity.Favorite; // Corrected import
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
