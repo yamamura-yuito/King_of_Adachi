@@ -1,7 +1,7 @@
-package com.example.kingofadachi.infrastructure.web;
+package com.example.kingofadachi.presentation.controller;
 
-import com.example.kingofadachi.application.service.CheckinService;
-import com.example.kingofadachi.domain.model.Checkin;
+import com.example.kingofadachi.application.service.impl.CheckinService;
+import com.example.kingofadachi.domain.entity.Checkin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api") // Base path for checkin related endpoints
+@RequestMapping("/api") // チェックイン関連エンドポイントのベースパス
 public class CheckinController {
 
     private final CheckinService checkinService;
@@ -20,11 +20,11 @@ public class CheckinController {
     }
 
     /**
-     * Creates a new check-in (stamp) for a user at a specific spot.
+     * 特定のスポットに対するユーザーの新しいチェックイン（スタンプ）を作成します。
      *
-     * @param userId The ID of the user checking in.
-     * @param payload A map containing the "spotId".
-     * @return The created Checkin object.
+     * @param userId チェックインするユーザーのID。
+     * @param payload "spotId" を含むマップ。
+     * @return 作成されたCheckinオブジェクト。
      */
     @PostMapping("/users/{userId}/checkins")
     public ResponseEntity<?> createCheckin(@PathVariable Long userId, @RequestBody Map<String, Long> payload) {
@@ -38,25 +38,25 @@ public class CheckinController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
         } catch (Exception e) {
-            // Generic error handler for other unexpected errors
+            // その他の予期せぬエラーに対する汎用エラーハンドラ
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "An unexpected error occurred."));
         }
     }
 
     /**
-     * Retrieves all check-ins (stamps) for a specific user.
+     * 特定のユーザーのすべてのチェックイン（スタンプ）を取得します。
      *
-     * @param userId The ID of the user whose check-ins are to be retrieved.
-     * @return A list of Checkin objects.
+     * @param userId チェックインを取得するユーザーのID。
+     * @return Checkinオブジェクトのリスト。
      */
     @GetMapping("/users/{userId}/checkins")
     public ResponseEntity<?> getCheckinsByUserId(@PathVariable Long userId) {
         try {
             List<Checkin> checkins = checkinService.getCheckinsByUserId(userId);
             if (checkins.isEmpty()) {
-                // Consider if NO_CONTENT is more appropriate if user exists but has no checkins
-                // vs. user not found. For now, returning OK with empty list is fine.
-                // The service currently throws IllegalArgumentException if user not found.
+                // ユーザーが存在するがチェックインがない場合に NO_CONTENT がより適切かどうか、
+                // ユーザーが見つからない場合と比較検討してください。現時点では、空のリストでOKを返す方針で問題ありません。
+                // 現在、サービスはユーザーが見つからない場合に IllegalArgumentException をスローします。
                 return new ResponseEntity<>(checkins, HttpStatus.OK);
             }
             return new ResponseEntity<>(checkins, HttpStatus.OK);

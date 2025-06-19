@@ -1,6 +1,6 @@
 package com.example.kingofadachi.domain.repository;
 
-import com.example.kingofadachi.domain.model.Checkin;
+import com.example.kingofadachi.domain.entity.Checkin;
 import java.util.List;
 
 public interface CheckinRepository {

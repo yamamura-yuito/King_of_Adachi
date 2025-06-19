@@ -1,4 +1,4 @@
-package com.example.kingofadachi.infrastructure.web;
+package com.example.kingofadachi.presentation.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,6 +1,6 @@
-package com.example.kingofadachi.infrastructure.web;
+package com.example.kingofadachi.presentation.controller;
 
-import com.example.kingofadachi.domain.model.Spot;
+import com.example.kingofadachi.domain.entity.Spot;
 import com.example.kingofadachi.domain.repository.SpotRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

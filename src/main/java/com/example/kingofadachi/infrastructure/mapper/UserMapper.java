@@ -1,6 +1,6 @@
-package com.example.kingofadachi.infrastructure.db.mybatis;
+package com.example.kingofadachi.infrastructure.mapper;
 
-import com.example.kingofadachi.domain.model.User; // Corrected import
+import com.example.kingofadachi.domain.entity.User; // Corrected import
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Optional;

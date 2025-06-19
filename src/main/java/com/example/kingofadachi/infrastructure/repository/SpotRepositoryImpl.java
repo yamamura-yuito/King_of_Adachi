@@ -1,8 +1,8 @@
-package com.example.kingofadachi.infrastructure.db.mybatis;
+package com.example.kingofadachi.infrastructure.repository;
 
-import com.example.kingofadachi.domain.model.Spot;
+import com.example.kingofadachi.domain.entity.Spot;
 import com.example.kingofadachi.domain.repository.SpotRepository;
-
+import com.example.kingofadachi.infrastructure.mapper.SpotMapper;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
@@ -10,9 +10,9 @@ import java.util.Optional;
 @Repository
 public class SpotRepositoryImpl implements SpotRepository {
 
-    private final SpotMapper spotMapper;
+    private final com.example.kingofadachi.infrastructure.mapper.SpotMapper spotMapper;
 
-    public SpotRepositoryImpl(SpotMapper spotMapper) {
+    public SpotRepositoryImpl(com.example.kingofadachi.infrastructure.mapper.SpotMapper spotMapper) {
         this.spotMapper = spotMapper;
     }
 
