@@ -4,13 +4,13 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Divider, Box } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-// import FavoriteIcon from '@mui/icons-material/Favorite'; // お気に入り機能は後で追加
+import FavoriteIcon from '@mui/icons-material/Favorite'; // FavoriteIcon をインポート
 
 const ResponsiveDrawer = ({ drawerWidth, mobileOpen, handleDrawerToggle }) => {
   const drawerItems = [
     { text: 'スポット一覧', icon: <HomeIcon />, path: '/' },
     { text: 'チェックイン履歴', icon: <CheckCircleIcon />, path: '/checkins' },
-    // { text: 'お気に入り', icon: <FavoriteIcon />, path: '/favorites' }, // 後で追加
+    { text: 'お気に入り一覧', icon: <FavoriteIcon />, path: '/favorites' }, // お気に入り一覧へのリンクを追加
   ];
 
   const drawer = (
@@ -43,7 +43,7 @@ const ResponsiveDrawer = ({ drawerWidth, mobileOpen, handleDrawerToggle }) => {
         open={mobileOpen}
         onClose={handleDrawerToggle}
         ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
+          keepMounted: true,
         }}
         sx={{
           display: { xs: 'block', sm: 'none' },
