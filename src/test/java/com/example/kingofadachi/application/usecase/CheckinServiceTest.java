@@ -45,7 +45,7 @@ public class CheckinServiceTest {
     @BeforeEach
     void setUp() {
         testUser = new User(1L, "testUser");
-        testSpot = new Spot(1L, "testSpot", "description", 0.0, 0.0, null, 0, null);
+        testSpot = new Spot(1L, "testSpot", "description", 0.0, 0.0);
         testCheckin = new Checkin(1L, testUser.getId(), testSpot.getId(), LocalDateTime.now());
     }
 
