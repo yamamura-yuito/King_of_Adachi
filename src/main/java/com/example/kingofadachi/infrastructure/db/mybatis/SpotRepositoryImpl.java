@@ -2,6 +2,7 @@ package com.example.kingofadachi.infrastructure.db.mybatis;
 
 import com.example.kingofadachi.domain.model.Spot;
 import com.example.kingofadachi.domain.repository.SpotRepository;
+
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
