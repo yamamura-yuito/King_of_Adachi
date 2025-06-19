@@ -1,49 +1,30 @@
-# 足立区全区域制覇アプリ (King of Adachi)
+# King of Adachi
 
-これは「足立区全区域制覇アプリ (King of Adachi)」のバックエンドリポジトリです。
-このアプリケーションは、ユーザーが足立区内の様々なスポットを訪れ、スタンプを集めることを目的としたSpring Bootウェブアプリケーションです。
+This project is a simple Spring Boot application for a game called "King of Adachi".
 
-## 主な機能（要件）
+## Project Structure
 
-- 足立区のスポットを訪れるとスタンプを獲得できます。
-- 今まで訪れたスタンプの一覧を閲覧できます。
-- 各スポットの詳細情報（説明、場所など）を見ることができます。
+The project follows a layered architecture:
 
-## 技術スタック（非機能要件）
+- **presentation**: Controllers and DTOs for handling API requests and responses.
+- **application**: Application services and use cases.
+- **domain**: Domain entities, value objects, repositories, and domain services.
+- **infrastructure**: Implementation of repositories, mappers, and other infrastructure concerns.
 
-- **プログラミング言語:** Java
-- **フレームワーク:** Spring Boot (Spring MVC)
-- **アーキテクチャ:** ドメイン駆動設計 (DDD) + オニオンアーキテクチャ
-- **ORM:** MyBatis
-- **データベース:** MySQL
-- **ビルドツール:** Maven
-- **フロントエンド:** レスポンシブデザイン（具体的な技術はフロントエンドリポジトリに依存）
+## Getting Started
 
-## APIエンドポイント
+To run the application:
 
-現在実装されている主なAPIエンドポイントは以下の通りです（ベースパス: `/api/spots`）。
+1. Clone the repository.
+2. Build the project using Maven: `mvn clean install`
+3. Run the application: `java -jar target/kingofadachi-1.0-SNAPSHOT.jar`
 
-- `POST /api/spots`: 新しいスポットを作成します。
-  - リクエストボディ: スポット情報 (JSON形式)
-  - レスポンス: 作成されたスポット情報
-- `GET /api/spots/{id}`: 指定されたIDのスポット情報を取得します。
-  - パスパラメータ: `id` (スポットID)
-  - レスポンス: スポット情報
-- `GET /api/spots`: すべてのスポット情報を取得します。
-  - レスポンス: スポット情報のリスト
+The application will be accessible at `http://localhost:8080`. A health check endpoint is available at `http://localhost:8080/health`.
 
-- `POST /api/users/{userId}/checkins`: ユーザーが特定のスポットで新しいチェックイン（スタンプ）を作成します。
-  - パスパラメータ: `userId` (ユーザーID)
-  - リクエストボディ: `spotId` を含むJSONオブジェクト (例: `{"spotId": 123}`)
-  - レスポンス: 作成されたチェックイン情報
-- `GET /api/users/{userId}/checkins`: 特定のユーザーのすべてのチェックイン（スタンプ）履歴を取得します。
-  - パスパラメータ: `userId` (ユーザーID)
-  - レスポンス: チェックイン情報のリスト
+## TODO
 
-## セットアップと実行
-
-(ここにローカル環境でのセットアップ方法や実行方法を記載 - 将来的に追記)
-
-## コントリビュート
-
-(ここにコントリビュート方法を記載 - 将来的に追記)
+- Implement core game logic.
+- Add database integration.
+- Implement user authentication and authorization.
+- Add unit and integration tests.
+- Define API specifications (e.g., using OpenAPI).
