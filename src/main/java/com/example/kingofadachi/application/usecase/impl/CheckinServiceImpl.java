@@ -1,5 +1,6 @@
-package com.example.kingofadachi.application.service.impl;
+package com.example.kingofadachi.application.usecase.impl;
 
+import com.example.kingofadachi.application.usecase.CheckinService;
 import com.example.kingofadachi.domain.entity.Checkin;
 import com.example.kingofadachi.domain.entity.Spot;
 import com.example.kingofadachi.domain.entity.User;
@@ -14,13 +15,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CheckinService {
+public class CheckinServiceImpl implements CheckinService {
 
     private final CheckinRepository checkinRepository;
     private final UserRepository userRepository; // ユーザー検証用
     private final SpotRepository spotRepository; // スポット検証用
 
-    public CheckinService(CheckinRepository checkinRepository, UserRepository userRepository, SpotRepository spotRepository) {
+    public CheckinServiceImpl(CheckinRepository checkinRepository, UserRepository userRepository, SpotRepository spotRepository) {
         this.checkinRepository = checkinRepository;
         this.userRepository = userRepository;
         this.spotRepository = spotRepository;

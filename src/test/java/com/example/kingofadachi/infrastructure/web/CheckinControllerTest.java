@@ -1,7 +1,7 @@
 package com.example.kingofadachi.infrastructure.web;
 
-import com.example.kingofadachi.application.service.CheckinService;
-import com.example.kingofadachi.domain.model.Checkin;
+import com.example.kingofadachi.application.usecase.impl.CheckinService;
+import com.example.kingofadachi.domain.entity.Checkin;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,16 +16,23 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.hasSize;
 
+import com.example.kingofadachi.presentation.controller.CheckinController;
+
 
 @WebMvcTest(CheckinController.class)
-class CheckinControllerTest {
+public class CheckinControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -37,33 +44,36 @@ class CheckinControllerTest {
     private ObjectMapper objectMapper;
 
     private Checkin testCheckin;
-    // private User testUser; // Not directly used in controller tests but for context
+    private Long testUserId = 1L;
+    private Long testSpotId = 1L;
 
     @BeforeEach
     void setUp() {
-        // testUser = new User(1L, "testuser"); // From domain model, if needed
-        testCheckin = new Checkin(1L, 1L, 1L, LocalDateTime.now());
+        testCheckin = new Checkin(1L, testUserId, testSpotId, LocalDateTime.now());
     }
 
     @Test
     void createCheckin_success() throws Exception {
-        Map<String, Long> payload = Map.of("spotId", 1L);
-        when(checkinService.createCheckin(1L, 1L)).thenReturn(testCheckin);
+        given(checkinService.createCheckin(testUserId, testSpotId)).willReturn(testCheckin);
 
-        mockMvc.perform(post("/api/users/1/checkins")
+        Map<String, Long> payload = Map.of("spotId", testSpotId);
+
+        mockMvc.perform(post("/api/users/{userId}/checkins", testUserId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(payload)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(1)))
-                .andExpect(jsonPath("$.userId", is(1)))
-                .andExpect(jsonPath("$.spotId", is(1)));
+                .andExpect(jsonPath("$.id", is(testCheckin.getId().intValue())))
+                .andExpect(jsonPath("$.userId", is(testUserId.intValue())))
+                .andExpect(jsonPath("$.spotId", is(testSpotId.intValue())));
+
+        verify(checkinService).createCheckin(testUserId, testSpotId);
     }
 
     @Test
     void createCheckin_missingSpotId_returnsBadRequest() throws Exception {
-        Map<String, Long> payload = Collections.emptyMap(); // No spotId
+        Map<String, Long> payload = Collections.emptyMap(); // Missing spotId
 
-        mockMvc.perform(post("/api/users/1/checkins")
+        mockMvc.perform(post("/api/users/{userId}/checkins", testUserId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(payload)))
                 .andExpect(status().isBadRequest())
@@ -71,11 +81,13 @@ class CheckinControllerTest {
     }
 
     @Test
-    void createCheckin_serviceThrowsIllegalArgument_returnsNotFound() throws Exception {
-        Map<String, Long> payload = Map.of("spotId", 1L);
-        when(checkinService.createCheckin(1L, 1L)).thenThrow(new IllegalArgumentException("User not found"));
+    void createCheckin_serviceThrowsIllegalArgumentException_returnsNotFound() throws Exception {
+        given(checkinService.createCheckin(testUserId, testSpotId))
+                .willThrow(new IllegalArgumentException("User not found"));
 
-        mockMvc.perform(post("/api/users/1/checkins")
+        Map<String, Long> payload = Map.of("spotId", testSpotId);
+
+        mockMvc.perform(post("/api/users/{userId}/checkins", testUserId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(payload)))
                 .andExpect(status().isNotFound())
@@ -83,11 +95,13 @@ class CheckinControllerTest {
     }
 
     @Test
-    void createCheckin_serviceThrowsUnexpectedException_returnsInternalServerError() throws Exception {
-        Map<String, Long> payload = Map.of("spotId", 1L);
-        when(checkinService.createCheckin(1L, 1L)).thenThrow(new RuntimeException("Unexpected error"));
+    void createCheckin_serviceThrowsRuntimeException_returnsInternalServerError() throws Exception {
+        given(checkinService.createCheckin(testUserId, testSpotId))
+                .willThrow(new RuntimeException("Unexpected error"));
 
-        mockMvc.perform(post("/api/users/1/checkins")
+        Map<String, Long> payload = Map.of("spotId", testSpotId);
+
+        mockMvc.perform(post("/api/users/{userId}/checkins", testUserId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(payload)))
                 .andExpect(status().isInternalServerError())
@@ -98,38 +112,49 @@ class CheckinControllerTest {
     @Test
     void getCheckinsByUserId_success() throws Exception {
         List<Checkin> checkins = Collections.singletonList(testCheckin);
-        when(checkinService.getCheckinsByUserId(1L)).thenReturn(checkins);
+        given(checkinService.getCheckinsByUserId(testUserId)).willReturn(checkins);
 
-        mockMvc.perform(get("/api/users/1/checkins"))
+        mockMvc.perform(get("/api/users/{userId}/checkins", testUserId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].id", is(1)));
+                .andExpect(jsonPath("$[0].id", is(testCheckin.getId().intValue())))
+                .andExpect(jsonPath("$[0].userId", is(testUserId.intValue())));
+
+        verify(checkinService).getCheckinsByUserId(testUserId);
     }
 
     @Test
     void getCheckinsByUserId_emptyList() throws Exception {
-        when(checkinService.getCheckinsByUserId(1L)).thenReturn(Collections.emptyList());
+        given(checkinService.getCheckinsByUserId(testUserId)).willReturn(Collections.emptyList());
 
-        mockMvc.perform(get("/api/users/1/checkins"))
+        mockMvc.perform(get("/api/users/{userId}/checkins", testUserId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
+
+        verify(checkinService).getCheckinsByUserId(testUserId);
     }
 
     @Test
-    void getCheckinsByUserId_serviceThrowsIllegalArgument_returnsNotFound() throws Exception {
-        when(checkinService.getCheckinsByUserId(1L)).thenThrow(new IllegalArgumentException("User not found"));
+    void getCheckinsByUserId_serviceThrowsIllegalArgumentException_returnsNotFound() throws Exception {
+        given(checkinService.getCheckinsByUserId(testUserId))
+                .willThrow(new IllegalArgumentException("User not found"));
 
-        mockMvc.perform(get("/api/users/1/checkins"))
+        mockMvc.perform(get("/api/users/{userId}/checkins", testUserId))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.error", is("User not found")));
+
+        verify(checkinService).getCheckinsByUserId(testUserId);
     }
 
     @Test
-    void getCheckinsByUserId_serviceThrowsUnexpectedException_returnsInternalServerError() throws Exception {
-        when(checkinService.getCheckinsByUserId(anyLong())).thenThrow(new RuntimeException("Unexpected DB error"));
+    void getCheckinsByUserId_serviceThrowsRuntimeException_returnsInternalServerError() throws Exception {
+        given(checkinService.getCheckinsByUserId(testUserId))
+                .willThrow(new RuntimeException("Unexpected error"));
 
-        mockMvc.perform(get("/api/users/1/checkins"))
-            .andExpect(status().isInternalServerError())
-            .andExpect(jsonPath("$.error", is("An unexpected error occurred.")));
+        mockMvc.perform(get("/api/users/{userId}/checkins", testUserId))
+                .andExpect(status().isInternalServerError())
+                .andExpect(jsonPath("$.error", is("An unexpected error occurred.")));
+
+        verify(checkinService).getCheckinsByUserId(testUserId);
     }
 }
