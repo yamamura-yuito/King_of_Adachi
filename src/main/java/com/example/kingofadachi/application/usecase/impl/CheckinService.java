@@ -1,4 +1,4 @@
-package com.example.kingofadachi.application.service.impl;
+package com.example.kingofadachi.application.usecase.impl;
 
 import com.example.kingofadachi.domain.entity.Checkin;
 import com.example.kingofadachi.domain.entity.Spot;
