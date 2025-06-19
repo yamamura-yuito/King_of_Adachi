@@ -1,4 +1,4 @@
-package io.github.shuoros.jep.infrastructure.db.mybatis;
+package com.example.kingofadachi.infrastructure.db.mybatis;
 
 import com.example.kingofadachi.domain.model.User; // Corrected import
 import org.apache.ibatis.annotations.Mapper;

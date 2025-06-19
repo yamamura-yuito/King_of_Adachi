@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
-<mapper namespace="io.github.shuoros.jep.infrastructure.db.mybatis.FavoriteMapper">
-    <select id="findByUserId" resultType="io.github.shuoros.jep.domain.model.Favorite">
+<mapper namespace="com.example.kingofadachi.infrastructure.db.mybatis.FavoriteMapper">
+    <select id="findByUserId" resultType="com.example.kingofadachi.domain.model.Favorite">
         SELECT user_id AS userId, spot_id AS spotId
         FROM favorites
         WHERE user_id = #{userId}
