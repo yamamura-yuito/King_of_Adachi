@@ -17,10 +17,10 @@ public class CheckinRepositoryImpl implements CheckinRepository {
 
     @Override
     public Checkin save(Checkin checkin) {
-        // Assuming CheckinMapper.insert also handles ID generation if needed
-        // and modifies the passed Checkin object or returns the generated ID.
-        // The current CheckinMapper.insert returns void, so we'll assume
-        // it populates the ID in the passed Checkin object.
+        // CheckinMapper.insert が必要に応じてID生成も処理し、
+        // 渡されたCheckinオブジェクトを変更するか、生成されたIDを返すと想定しています。
+        // 現在の CheckinMapper.insert は void を返すため、
+        // 渡されたCheckinオブジェクトにIDが設定されるものと仮定します。
         checkinMapper.insert(checkin);
         return checkin;
     }

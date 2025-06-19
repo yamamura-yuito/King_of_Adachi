@@ -23,7 +23,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User user) {
-        // Assuming UserMapper.insert populates the ID.
+        // UserMapper.insert が ID を設定することを想定
         userMapper.insert(user);
         return user;
     }

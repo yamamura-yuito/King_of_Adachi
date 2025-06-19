@@ -5,5 +5,5 @@ import java.util.Optional;
 
 public interface UserRepository {
     Optional<User> findById(Long id);
-    User save(User user); // Assuming a save method might be needed
+    User save(User user); // saveメソッドが必要になることを想定
 }

@@ -17,8 +17,8 @@ import java.util.Optional;
 public class CheckinService {
 
     private final CheckinRepository checkinRepository;
-    private final UserRepository userRepository; // For user validation
-    private final SpotRepository spotRepository; // For spot validation
+    private final UserRepository userRepository; // ユーザー検証用
+    private final SpotRepository spotRepository; // スポット検証用
 
     public CheckinService(CheckinRepository checkinRepository, UserRepository userRepository, SpotRepository spotRepository) {
         this.checkinRepository = checkinRepository;
@@ -28,36 +28,36 @@ public class CheckinService {
 
     @Transactional
     public Checkin createCheckin(Long userId, Long spotId) {
-        // Validate user (optional but good practice)
+        // ユーザーを検証 (任意だが推奨される実践)
         Optional<User> user = userRepository.findById(userId);
         if (user.isEmpty()) {
             throw new IllegalArgumentException("User not found with ID: " + userId);
         }
 
-        // Validate spot (optional but good practice)
+        // スポットを検証 (任意だが推奨される実践)
         Optional<Spot> spot = spotRepository.findById(spotId);
         if (spot.isEmpty()) {
             throw new IllegalArgumentException("Spot not found with ID: " + spotId);
         }
 
-        // Create Checkin entity
-        // The Checkin constructor requires an ID. Since it's auto-generated,
-        // we'll pass null or use a constructor that doesn't require it if available.
-        // Let's assume the Checkin model has a constructor for new checkins
-        // or the ID will be set by the mapper.
-        // The current Checkin model's constructor `public Checkin(Long id, Long userId, Long spotId, LocalDateTime checkinTime)`
-        // requires an ID. We should adjust this or add a new constructor.
-        // For now, let's assume the ID is handled by the database/mapper.
+        // Checkinエンティティを作成
+        // CheckinコンストラクタはIDを要求します。IDは自動生成されるため、
+        // nullを渡すか、IDを要求しないコンストラクタが利用可能であればそれを使用します。
+        // Checkinモデルに新しいチェックイン用のコンストラクタがあるか、
+        // またはIDがマッパーによって設定されることを前提とします。
+        // 現在のCheckinモデルのコンストラクタ `public Checkin(Long id, Long userId, Long spotId, LocalDateTime checkinTime)`
+        // はIDを要求します。これを調整するか、新しいコンストラクタを追加する必要があります。
+        // 現時点では、IDはデータベース/マッパーによって設定されると仮定します。
         Checkin newCheckin = new Checkin(null, userId, spotId, LocalDateTime.now());
 
         return checkinRepository.save(newCheckin);
     }
 
     public List<Checkin> getCheckinsByUserId(Long userId) {
-        // Validate user (optional)
+        // ユーザーを検証 (任意)
         Optional<User> user = userRepository.findById(userId);
         if (user.isEmpty()) {
-            // Or return empty list, or throw custom exception
+            // または空のリストを返すか、カスタム例外をスローします
             throw new IllegalArgumentException("User not found with ID: " + userId);
         }
         return checkinRepository.findByUserId(userId);
