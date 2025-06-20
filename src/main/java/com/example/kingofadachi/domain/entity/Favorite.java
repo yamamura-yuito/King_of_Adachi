@@ -3,12 +3,26 @@ package com.example.kingofadachi.domain.entity;
 import java.util.Objects;
 
 public class Favorite {
-    private Long userId;
-    private Long spotId;
 
-    public Favorite(Long userId, Long spotId) {
+    private Long id;
+    private Long userId;
+    private Long spotId; // Spot オブジェクトではなく spotId を保持
+
+    public Favorite() {
+    }
+
+    public Favorite(Long id, Long userId, Long spotId) {
+        this.id = id;
         this.userId = userId;
         this.spotId = spotId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getUserId() {
@@ -32,20 +46,22 @@ public class Favorite {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Favorite favorite = (Favorite) o;
-        return Objects.equals(userId, favorite.userId) &&
+        return Objects.equals(id, favorite.id) &&
+               Objects.equals(userId, favorite.userId) &&
                Objects.equals(spotId, favorite.spotId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, spotId);
+        return Objects.hash(id, userId, spotId);
     }
 
     @Override
     public String toString() {
         return "Favorite{" +
-                "userId=" + userId +
-                ", spotId=" + spotId +
-                '}';
+               "id=" + id +
+               ", userId=" + userId +
+               ", spotId=" + spotId +
+               '}';
     }
 }
