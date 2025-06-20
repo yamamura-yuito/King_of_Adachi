@@ -2,7 +2,6 @@ package com.example.kingofadachi.infrastructure.repository;
 
 import com.example.kingofadachi.domain.entity.Spot;
 import com.example.kingofadachi.domain.repository.SpotRepository;
-import com.example.kingofadachi.infrastructure.mapper.SpotMapper;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;

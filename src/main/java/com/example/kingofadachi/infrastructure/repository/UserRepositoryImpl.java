@@ -2,7 +2,6 @@ package com.example.kingofadachi.infrastructure.repository;
 
 import com.example.kingofadachi.domain.entity.User;
 import com.example.kingofadachi.domain.repository.UserRepository;
-import com.example.kingofadachi.infrastructure.mapper.UserMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

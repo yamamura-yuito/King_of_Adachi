@@ -2,7 +2,6 @@ package com.example.kingofadachi.infrastructure.repository;
 
 import com.example.kingofadachi.domain.entity.Checkin;
 import com.example.kingofadachi.domain.repository.CheckinRepository;
-import com.example.kingofadachi.infrastructure.mapper.CheckinMapper;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
