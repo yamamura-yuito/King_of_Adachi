@@ -1,6 +1,5 @@
 package com.example.kingofadachi.application.usecase;
 
-import com.example.kingofadachi.application.usecase.impl.CheckinService;
 import com.example.kingofadachi.domain.entity.Checkin;
 import com.example.kingofadachi.domain.entity.Spot;
 import com.example.kingofadachi.domain.entity.User;

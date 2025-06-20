@@ -1,6 +1,6 @@
 package com.example.kingofadachi.presentation.controller;
 
-import com.example.kingofadachi.application.usecase.impl.CheckinService;
+import com.example.kingofadachi.application.usecase.CheckinService;
 import com.example.kingofadachi.domain.entity.Checkin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
