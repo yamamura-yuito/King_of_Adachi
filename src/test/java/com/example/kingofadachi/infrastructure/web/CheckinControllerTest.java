@@ -1,6 +1,6 @@
 package com.example.kingofadachi.infrastructure.web;
 
-import com.example.kingofadachi.application.usecase.impl.CheckinService;
+import com.example.kingofadachi.application.usecase.CheckinService;
 import com.example.kingofadachi.domain.entity.Checkin;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
